@@ -1,0 +1,72 @@
+{
+  "name": "genpark-agentic-commerce-multi-channel-inventory-ghost-stock-buffer-skill",
+  "version": "1.0.0",
+  "title": "Multi-Channel Inventory Ghost Stock Deconfliction Skill",
+  "description": "Cross-marketplace inventory synchronization, phantom stock deconfliction, and dynamic safety buffers across Amazon, Shopify, and TikTok Shop. Built for GenPark (https://www.genpark.ai).",
+  "homepage": "https://www.genpark.ai",
+  "linkedin": "https://www.linkedin.com/company/92955550",
+  "category": "agentic-commerce",
+  "topics": [
+    "ghost-stock",
+    "inventory-sync",
+    "multi-channel-retail",
+    "oversell-prevention",
+    "agentic-commerce",
+    "model-context-protocol",
+    "genpark"
+  ],
+  "tools": [
+    {
+      "name": "deconflict_shared_inventory_pool",
+      "description": "Allocate physical warehouse inventory across active channels while withholding safety buffer to prevent overselling.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "physical_on_hand_stock": {
+            "type": "integer"
+          },
+          "channel_order_velocities": {
+            "type": "object",
+            "properties": {
+              "amazon": {
+                "type": "number"
+              },
+              "shopify": {
+                "type": "number"
+              },
+              "tiktok_shop": {
+                "type": "number"
+              }
+            }
+          },
+          "sync_latency_minutes": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "physical_on_hand_stock",
+          "channel_order_velocities"
+        ]
+      }
+    },
+    {
+      "name": "trigger_oversell_emergency_circuit_breaker",
+      "description": "Trigger instant channel zero-out feed when stock breaches critical threshold.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "sku": {
+            "type": "string"
+          },
+          "available_unallocated_units": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "sku",
+          "available_unallocated_units"
+        ]
+      }
+    }
+  ]
+}
